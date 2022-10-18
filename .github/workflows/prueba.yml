@@ -1,1 +1,13 @@
-ho
+on: [push]
+jobs:
+  to_github:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: yesolutions/mirror-action@master
+        with:
+          REMOTE: 'git@github.com:bayer-int/epimexicocentro-micultivo-backend.git'
+          GIT_USERNAME: AlexDuranBayer
+          GIT_PASSWORD: ${{ secrets.BAY_GIT_PSW }}
