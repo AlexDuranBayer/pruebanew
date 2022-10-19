@@ -1,13 +1,17 @@
-on: [push]
+name: Super-Linter
+
+on: push
+
 jobs:
-  to_github:
-    runs-on: ubuntu-20.04
+  super-lint:
+    name: Lint code base
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: yesolutions/mirror-action@master
-        with:
-          REMOTE: 'git@github.com:bayer-int/epimexicocentro-micultivo-backend.git'
-          GIT_USERNAME: AlexDuranBayer
-          GIT_PASSWORD: ${{ secrets.BAY_GIT_PSW }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Super-Linter
+        uses: github/super-linter@v3
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
